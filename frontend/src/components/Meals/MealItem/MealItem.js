@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
@@ -10,6 +10,9 @@ import classes from "./MealItem.module.css";
 const MealItem = (props) => {
   const cartCtx = useContext(CartContext);
   const price = `$${props.price.toFixed(2)}`;
+  const [shoppingBtnClasses, setShoppingBtnClasses] = useState(
+    `${classes.button}`
+  );
   const addToCartHandler = (amount) => {
     cartCtx.addItem({
       id: props.id,
@@ -19,23 +22,20 @@ const MealItem = (props) => {
     });
   };
 
-  const item = cartCtx.items.find(i => i.id === props.id);
+  const item = cartCtx.items.find((i) => i.id === props.id);
   let amount = 0;
-  if(item){
+  if (item) {
     amount = item.amount;
   }
-  return (
-    // <li className={classes.meal}>
-    //   <div>
-    //     <h3>{props.name}</h3>
-    //     <div className={classes.description}>{props.description}</div>
-    //     <div className={classes.price}>{price}</div>
-    //   </div>
-    //   <div>
-    //     {/* <MealItemForm onAddToCart={addToCartHandler} /> */}
-    //   </div>
-    // </li>
 
+  const buttonBump = () => {
+    setShoppingBtnClasses(`${classes.button} ${classes.bump}`);
+    setTimeout(() => {
+      props.onAdd();
+      setShoppingBtnClasses(`${classes.button}`);
+    }, 130);
+  };
+  return (
     <li key={props.id} className={`${classes.item} ${classes.meal}`}>
       <div className={classes.content}>
         <img src={props.image} alt={props.name} />
@@ -47,14 +47,33 @@ const MealItem = (props) => {
         </div>
       </div>
       <div>
-        <MealItemForm onAddToCart={addToCartHandler} />
-        <button onClick={props.onAdd}>
-          <FaPlus />
-        </button>
-        <p>{amount}</p>
-        <button onClick={props.onRemove}>
-          <FaMinus />
-        </button>
+        {amount === 0 && (
+          <button className={shoppingBtnClasses} onClick={buttonBump}>
+            <FaPlus className={classes.badge} />
+          </button>
+        )}
+        {amount > 0 && (
+          <>
+            <button
+              className={`${classes.button} ${classes["upper-button"]}`}
+              onClick={props.onAdd}
+            >
+              <FaPlus className={classes.badge} />
+            </button>
+            <p className={classes.amount}>{amount}</p>
+            <button
+              className={`${classes.button} ${classes["lower-button"]}`}
+              onClick={props.onRemove}
+            >
+              <FaMinus className={classes.badge} />
+            </button>
+          </>
+        )}
+      </div>
+      <div>
+        <Link to={`/meals/${props.id}/edit`}>
+          <p>Edit</p>
+        </Link>
       </div>
     </li>
   );

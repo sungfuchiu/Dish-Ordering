@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import classes from './MealsList.module.css';
-import Card from './UI/Card';
+import Card from '../UI/Card';
 
 function CuisinesList({events}) {
 
