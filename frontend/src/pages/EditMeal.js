@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import MealForm from "../components/Meals/MealItem/MealForm";
+import {checkAuthLoader} from '../util/auth'
 
 function EditEventPage() {
   const { meal } = useLoaderData();
@@ -29,7 +30,7 @@ function EditEventPage() {
 export default EditEventPage;
 
 async function loadMeal(id) {
-  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/meals/${id}`);//"http://localhost:4000/meals/" + id);
+  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}meals/${id}`);//"http://localhost:4000/meals/" + id);
 
   if (!response.ok) {
     throw json(
@@ -45,6 +46,7 @@ async function loadMeal(id) {
 }
 
 export async function loader({ request, params }) {
+  checkAuthLoader();
   const id = params.mealId;
 
   return defer({

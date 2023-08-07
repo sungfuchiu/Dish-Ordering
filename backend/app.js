@@ -1,6 +1,7 @@
 const express = require('express');
 
 const mealRoutes = require('./routes/meals');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = 4000;
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
     next();
   });
   
-//   app.use(authRoutes);
+  app.use(authRoutes);
 
   app.use('/meals', mealRoutes);
   

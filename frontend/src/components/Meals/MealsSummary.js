@@ -1,7 +1,12 @@
 import classes from './MealsSummary.module.css';
+import mealsImage from "../../assets/meals.jpg";
 
 const MealsSummary = () => {
   return (
+    <>
+    <div className={classes["main-image"]}>
+      <img src={mealsImage} alt="A table full of delicious food!" />
+    </div>
     <section className={classes.summary}>
       <h2>Delicious Food, Delivered To You</h2>
       <p>
@@ -13,6 +18,7 @@ const MealsSummary = () => {
         of course by experienced chefs!
       </p>
     </section>
+    </>
   );
 };
 

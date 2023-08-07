@@ -1,8 +1,7 @@
 import { NavLink, Form, useRouteLoaderData } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
-import HeaderCartButton from './HeaderCartButton';
-import mealsImage from '../../assets/meals.jpg';
+import HeaderCartButton from "./HeaderCartButton";
 import { Fragment } from "react";
 
 function MainNavigation(props) {
@@ -10,6 +9,7 @@ function MainNavigation(props) {
 
   return (
     <Fragment>
+      <div className={classes.headerLine}>
       <header className={classes.header}>
         <nav>
           <ul className={classes.list}>
@@ -24,31 +24,41 @@ function MainNavigation(props) {
                 Meals
               </NavLink>
             </li>
-            {/* {!token && (
+            {token && (
             <li>
               <NavLink
-                to="/auth?mode=login"
+                to="/meals/new"
                 className={({ isActive }) =>
                   isActive ? classes.active : undefined
                 }
               >
-                Authentication
+                New Meal
               </NavLink>
             </li>
-          )}
-          {token && (
-            <li>
-              <Form action="/logout" method="post">
-                <button>Logout</button>
-              </Form>
-            </li>
-          )} */}
+            )}
+            {!token && (
+              <li>
+                <NavLink
+                  to="/login?mode=login"
+                  className={({ isActive }) =>
+                    isActive ? classes.active : undefined
+                  }
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
+            {token && (
+              <li>
+                <Form action="/logout" method="post">
+                  <button>Logout</button>
+                </Form>
+              </li>
+            )}
           </ul>
         </nav>
         <HeaderCartButton onClick={props.onShowCart} />
       </header>
-      <div className={classes["main-image"]}>
-        <img src={mealsImage} alt="A table full of delicious food!" />
       </div>
     </Fragment>
   );

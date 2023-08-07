@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import CartContext from "../../store/cart-context";
-import CartIcon from "../Cart/CartIcon"
 
+import { FaShoppingCart } from "react-icons/fa";
 import classes from "./HeaderCartButton.module.css";
 
 const CartButton = (props) => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
   const cartCtx = useContext(CartContext);
-  const { items } = cartCtx;
+  const { items, totalAmount } = cartCtx;
 
   const numberOfCartItem = items.reduce((curNumber, item) => {
     return curNumber + item.amount;
@@ -34,9 +34,9 @@ const CartButton = (props) => {
   return (
     <button className={btnClasses} onClick={props.onClick}>
       <span>
-        <CartIcon/>
+        <FaShoppingCart/>
       </span>
-      <span>Your Cart</span>
+      <span>${totalAmount}</span>
       <span className={classes.badge}>{numberOfCartItem}</span>
     </button>
   );

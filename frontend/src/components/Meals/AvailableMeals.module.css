@@ -1,7 +1,7 @@
 .meals {
-    max-width: 60rem;
+    max-width: 80rem;
     width: 90%;
-    margin: 2rem auto;
+    margin: 15rem auto 2rem auto;
     animation: meals-appear 1s ease-out forwards;
   }
   
@@ -9,9 +9,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    /* display: flex;
-    flex-direction: row;
-    gap: 1rem; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .MealsLoading{

@@ -100,11 +100,9 @@ const AvailableMeals = (props) => {
 
   return (
     <section className={classes.meals}>
-      <Card>
         {/* {isLoading && <p>Page is loading.</p>}
         {!isLoading && <ul>{mealsList}</ul>} */}
         <ul>{mealsList}</ul>
-      </Card>
     </section>
   );
 };

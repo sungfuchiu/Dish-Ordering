@@ -9,30 +9,30 @@ import { useState } from "react";
 import MainNavigation from "../components/Layout/MainNavigation";
 import CartProvider from '../store/CartProvider'
 import Cart from '../components/Cart/Cart'
-// import { useEffect } from "react";
-// import { getTokenDuration } from "../util/auth";
+import { useEffect } from "react";
+import { getTokenDuration } from "../util/auth";
 
 function RootLayout() {
-  // const token = useLoaderData();
-  // const submit = useSubmit();
-  // useEffect(() => {
-  //   if (!token) {
-  //     return;
-  //   }
+  const token = useLoaderData();
+  const submit = useSubmit();
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
 
-  //   if(token === 'EXPIRED'){
-  //     submit(null, { action: "/logout", method: "post" });
-  //     return;
-  //   }
+    if(token === 'EXPIRED'){
+      submit(null, { action: "/logout", method: "post" });
+      return;
+    }
 
-  //   const tokenDruation = getTokenDuration();
-  //   console.log(tokenDruation);
+    const tokenDruation = getTokenDuration();
+    console.log(tokenDruation);
 
-  //   setTimeout(() => {
-  //     console.log(tokenDruation);
-  //     submit(null, { action: "/logout", method: "post" });
-  //   }, tokenDruation);
-  // }, [token, submit]);
+    setTimeout(() => {
+      console.log(tokenDruation);
+      submit(null, { action: "/logout", method: "post" });
+    }, tokenDruation);
+  }, [token, submit]);
   const [cartIsShown, setCartIsShown] = useState(false);
   const showCartHandler = () => {
     setCartIsShown(true);

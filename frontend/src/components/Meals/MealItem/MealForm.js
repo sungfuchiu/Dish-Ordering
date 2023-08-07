@@ -4,21 +4,32 @@ import {
   useNavigation,
   useActionData,
   json,
-  redirect
-} from 'react-router-dom';
+  redirect,
+  useSubmit,
+} from "react-router-dom";
 
-import classes from './MealForm.module.css';
-// import { getAuthToken } from '../util/auth';
+import classes from "./MealForm.module.css";
+import { getAuthToken } from '../../../util/auth';
 
 function MealForm({ method, meal }) {
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
+  const submit = useSubmit();
 
-  const isSubmitting = navigation.state === 'submitting';
+  const isSubmitting = navigation.state === "submitting";
 
   function cancelHandler() {
-    navigate('..');
+    navigate("..");
+  }
+
+  function startDeleteHandler(action) {
+    const proceed = window.confirm("Are you sure?");
+
+    if (proceed) {
+      submit(null, { method: "delete" });
+    }
+    return;
   }
 
   return (
@@ -37,7 +48,7 @@ function MealForm({ method, meal }) {
           type="text"
           name="name"
           required
-          defaultValue={meal ? meal.name : ''}
+          defaultValue={meal ? meal.name : ""}
         />
       </p>
       <p>
@@ -47,7 +58,7 @@ function MealForm({ method, meal }) {
           type="url"
           name="imageURL"
           required
-          defaultValue={meal ? meal.imageURL : ''}
+          defaultValue={meal ? meal.imageURL : ""}
         />
       </p>
       <p>
@@ -68,15 +79,16 @@ function MealForm({ method, meal }) {
           name="description"
           rows="5"
           required
-          defaultValue={meal ? meal.description : ''}
+          defaultValue={meal ? meal.description : ""}
         />
       </p>
       <div className={classes.actions}>
+        <button type="button" onClick={startDeleteHandler}>Delete</button>
         <button type="button" onClick={cancelHandler} disabled={isSubmitting}>
           Cancel
         </button>
         <button disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Save'}
+          {isSubmitting ? "Submitting..." : "Save"}
         </button>
       </div>
     </Form>
@@ -90,25 +102,25 @@ export async function action({ request, params }) {
   const data = await request.formData();
 
   const mealData = {
-    name: data.get('name'),
-    imageURL: data.get('imageURL'),
-    price: Number(data.get('price')),
-    description: data.get('description'),
+    name: data.get("name"),
+    imageURL: data.get("imageURL"),
+    price: Number(data.get("price")),
+    description: data.get("description"),
   };
 
-  let url = `${process.env.REACT_APP_BACKEND_URL}/meals`;
+  let url = `${process.env.REACT_APP_BACKEND_URL}meals`;
 
-  if (method === 'PATCH') {
+  if (method === "PATCH" || method === "DELETE") {
     const mealId = params.mealId;
-    url = `${process.env.REACT_APP_BACKEND_URL}/meals/` + mealId;
+    url = `${process.env.REACT_APP_BACKEND_URL}meals/` + mealId;
   }
 
-  // const token = getAuthToken();
+  const token = getAuthToken();
   const response = await fetch(url, {
     method: method,
     headers: {
-      'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ' + token
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(mealData),
   });
@@ -118,9 +130,16 @@ export async function action({ request, params }) {
   }
 
   if (!response.ok) {
-    throw json({ message: 'Could not save meal.' }, { status: 500 });
+    if (method === "DELETE") {
+      throw json(
+        { message: "Could not delete event." },
+        {
+          status: 500,
+        }
+      );
+    }
+    throw json({ message: "Could not save meal." }, { status: 500 });
   }
 
-  return redirect('/');
+  return redirect("/");
 }
-
