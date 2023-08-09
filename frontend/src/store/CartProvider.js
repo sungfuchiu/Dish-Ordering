@@ -28,7 +28,6 @@ const cartReducer = (state, action) => {
       updatedItems = state.items.concat(action.item);
     }
     
-    // const updatedItems = state.items.concat(action.item);
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
 
@@ -49,6 +48,10 @@ const cartReducer = (state, action) => {
     }
 
     return { items: updatedItems, totalAmount: updatedTotalAmount };
+  }
+
+  if(action.type === 'SEARCH'){
+    return { items: [...state.items], totalAmount: state.totalAmount }; 
   }
 
   if(action.type === "CLEAR"){
@@ -77,11 +80,10 @@ const CartProvider = (props) => {
 
   const cartContext = {
     items: cartState.items,
-    // orderList: cartState.,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    clearCart: clearCartHandler
+    clearCart: clearCartHandler,
   };
 
   return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;

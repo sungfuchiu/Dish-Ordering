@@ -13,17 +13,20 @@
     font-weight: bold;
     font-size: 1.5rem;
     margin: 1rem 0;
+    color: black;
   }
   
   .actions {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }
   
   .actions button {
     font: inherit;
     cursor: pointer;
     background-color: transparent;
-    border: 1px solid #8a2b06;
+    border: 1px solid #ec9d00;
     padding: 0.5rem 2rem;
     border-radius: 25px;
     margin-left: 1rem;
@@ -37,10 +40,14 @@
   }
   
   .actions .button--alt {
-    color: #8a2b06;
+    color: #ec9d00;
   }
   
   .actions .button {
-    background-color: #8a2b06;
+    background-color: #ec9d00;
     color: white;
+  }
+
+  .text{
+    color: black;
   }

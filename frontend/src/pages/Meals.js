@@ -1,7 +1,7 @@
 import { Suspense, Fragment } from "react";
 import { useLoaderData, json, defer, Await } from "react-router-dom";
 
-import MealsSummary from "../components/Meals/MealsSummary";
+import Introduction from "../components/Meals/Introduction";
 import AvailableMeals from "../components/Meals/AvailableMeals";
 
 function MealsPage() {
@@ -9,7 +9,7 @@ function MealsPage() {
 
   return (
     <Fragment>
-      <MealsSummary></MealsSummary>
+      <Introduction />
       <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
         <Await resolve={meals}>
           {(loadedMeals) => (
@@ -24,7 +24,7 @@ function MealsPage() {
 export default MealsPage;
 
 async function loadMeals() {
-    const response = await fetch('http://localhost:4000/meals/');
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}meals/`);
 
     if (!response.ok) {
       throw json(

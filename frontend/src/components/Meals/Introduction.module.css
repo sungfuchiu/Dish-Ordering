@@ -5,10 +5,13 @@
     margin: auto;
     margin-top: -35rem;
     position: relative;
-    color: black;
     border-radius: 14px;
     padding: 1rem;
     box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f4e814, 0 0 40px #f4e814, 0 0 50px #f4e814, 0 0 60px #f4e814, 0 0 70px #f4e814;
+    background: #0000003d;
   }
   
   .summary h2 {

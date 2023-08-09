@@ -28,20 +28,8 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    // const response = await
-    const response = await fetch(
-      "https://react-http-fd79d-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: userData,
-          orderedItems: cartCnx.items,
-        }),
-      }
-    );
+    
+    //Don't send order data since I won't use them in this project.
 
     setIsSubmitting(false);
     setDidSubmit(true);
@@ -90,9 +78,9 @@ const Cart = (props) => {
     </React.Fragment>
   );
 
-  const isSubmittingModalContent = <p>Sending order data...</p>;
+  const isSubmittingModalContent = <p className={classes.text}>Sending order data...</p>;
   const didSubmitModalContent = <Fragment>
-      <p>Successfully Sent the order!</p>;
+      <p className={classes.text}>Successfully Sent the order!</p>;
       <div className={classes.actions}>
       <button className={classes.button} onClick={props.onClose}>
         Close

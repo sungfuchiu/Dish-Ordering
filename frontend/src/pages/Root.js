@@ -46,7 +46,6 @@ function RootLayout() {
       {cartIsShown && <Cart onClose={hideCartHandler} />}
       <MainNavigation onShowCart={showCartHandler} />
       <main>
-        {/* {navigation.state === 'loading' && <p>Loading...</p>} */}
         <Outlet />
       </main>
     </CartProvider>

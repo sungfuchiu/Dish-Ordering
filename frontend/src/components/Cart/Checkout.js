@@ -60,13 +60,13 @@ const Checkout = (props) => {
     formInputValidity.name ? "" : classes.invalid
   }`
   const streetControlClasses = `${classes.control} ${
-    formInputValidity.name ? "" : classes.invalid
+    formInputValidity.street ? "" : classes.invalid
   }`
   const postalControlClasses = `${classes.control} ${
-    formInputValidity.name ? "" : classes.invalid
+    formInputValidity.postal ? "" : classes.invalid
   }`
   const cityControlClasses = `${classes.control} ${
-    formInputValidity.name ? "" : classes.invalid
+    formInputValidity.city ? "" : classes.invalid
   }`
 
   return (
@@ -76,22 +76,22 @@ const Checkout = (props) => {
       >
         <label htmlFor="name">Your Name</label>
         <input type="text" id="name" ref={nameInputRef} />
-        {!formInputValidity.name && <p>Please enter a valid name!</p>}
+        {!formInputValidity.name && <p className={classes.invalid}>Please enter a valid name!</p>}
       </div>
       <div className={streetControlClasses}>
         <label htmlFor="street">Street</label>
         <input type="text" id="street" ref={streetInputRef} />
-        {!formInputValidity.street && <p>Please enter a valid street!</p>}
+        {!formInputValidity.street && <p className={classes.invalid}>Please enter a valid street!</p>}
       </div>
       <div className={postalControlClasses}>
         <label htmlFor="postal">Postal Code</label>
         <input type="text" id="postal" ref={postalInputRef} />
-        {!formInputValidity.postal && <p>Please enter a valid postal code!</p>}
+        {!formInputValidity.postal && <p className={classes.invalid}>Please enter a valid postal code!</p>}
       </div>
       <div className={cityControlClasses}>
         <label htmlFor="city">City</label>
         <input type="text" id="city" ref={cityInputRef} />
-        {!formInputValidity.city && <p>Please enter a valid city!</p>}
+        {!formInputValidity.city && <p className={classes.invalid}>Please enter a valid city!</p>}
       </div>
       <div className={classes.actions}>
         <button

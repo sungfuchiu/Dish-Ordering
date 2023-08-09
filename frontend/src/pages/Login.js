@@ -42,7 +42,7 @@ export async function action({request}){
 
   localStorage.setItem('token', token);
   const expiration = new Date();
-  expiration.setSeconds(expiration.getMinutes() + 30);
+  expiration.setMinutes(expiration.getMinutes() + 30);
   localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/');

@@ -132,7 +132,7 @@ export async function action({ request, params }) {
   if (!response.ok) {
     if (method === "DELETE") {
       throw json(
-        { message: "Could not delete event." },
+        { message: "Could not delete meal." },
         {
           status: 500,
         }

@@ -1,36 +1,43 @@
 .meals {
-    max-width: 80rem;
-    width: 90%;
-    margin: 15rem auto 2rem auto;
-    animation: meals-appear 1s ease-out forwards;
-  }
-  
-  .meals ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  max-width: 80rem;
+  width: 90%;
+  margin: 15rem auto 2rem auto;
+  animation: meals-appear 1s ease-out forwards;
+  color: black;
+}
+
+.meals ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.MealsLoading {
+  text-align: center;
+  color: rgb(66, 1, 1);
+}
+
+.MealsError {
+  text-align: center;
+  color: rgb(255, 0, 0);
+}
+
+.SearchMessage {
+  text-align: center;
+  margin-top: 30rem;
+  color: white;
+}
+
+@keyframes meals-appear {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
   }
 
-  .MealsLoading{
-    text-align: center;
-    color:rgb(66, 1, 1);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-
-  .MealsError{
-    text-align: center;
-    color:rgb(255, 0, 0);
-  }
-  
-  @keyframes meals-appear {
-    from {
-      opacity: 0;
-      transform: translateY(3rem);
-    }
-  
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}

@@ -36,7 +36,7 @@ const CartButton = (props) => {
       <span>
         <FaShoppingCart/>
       </span>
-      <span>${totalAmount}</span>
+      <span>${totalAmount.toFixed(2)}</span>
       <span className={classes.badge}>{numberOfCartItem}</span>
     </button>
   );

@@ -1,56 +1,40 @@
-const { v4: generateId } = require('uuid');
+const { NotFoundError } = require("../util/errors");
 
-const { NotFoundError } = require('../util/errors');
-const { readData, writeData } = require('./util');
+let Meal = require("../models/meals.model");
 
 async function getAll() {
-  const storedData = await readData();
-  if (!storedData.meals) {
-    throw new NotFoundError('Could not find any meals.');
+  const meals = await Meal.find();
+  if (!meals) {
+    throw new NotFoundError("Could not find any meals.");
   }
-  return storedData.meals;
+  return meals;
 }
 
 async function get(id) {
-  const storedData = await readData();
-  if (!storedData.meals || storedData.meals.length === 0) {
-    throw new NotFoundError('Could not find any meals.');
+  const meal = await Meal.findById(id);
+  if (!meal) {
+    throw new NotFoundError("Could not find event for id " + id);
   }
 
-  const event = storedData.meals.find((ev) => ev.id === id);
-  if (!event) {
-    throw new NotFoundError('Could not find event for id ' + id);
-  }
-
-  return event;
+  return meal;
 }
 
 async function add(data) {
-  const storedData = await readData();
-  storedData.meals.unshift({ ...data, id: generateId() });
-  await writeData(storedData);
+  const newMeal = new Meal({ ...data });
+  await newMeal.save();
 }
 
 async function replace(id, data) {
-  const storedData = await readData();
-  if (!storedData.meals || storedData.meals.length === 0) {
-    throw new NotFoundError('Could not find any meals.');
-  }
-
-  const index = storedData.meals.findIndex((ev) => ev.id === id);
-  if (index < 0) {
-    throw new NotFoundError('Could not find event for id ' + id);
-  }
-
-  storedData.meals[index] = { ...data, id };
-
-  await writeData(storedData);
+  const meal = await Meal.findById(id);
+  meal.name = data.name;
+  meal.description = data.description;
+  meal.price = data.price;
+  meal.imageURL = data.imageURL;
+  await meal.save();
 }
 
 async function remove(id) {
-  const storedData = await readData();
-  const updatedData = storedData.meals.filter((ev) => ev.id !== id);
-  await writeData({ ...storedData, meals: updatedData });
+  await Meal.findByIdAndDelete(id);
 }
 
 exports.getAll = getAll;

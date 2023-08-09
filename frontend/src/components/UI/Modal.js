@@ -2,7 +2,6 @@ import React, {Fragment} from "react";
 import ReactDOM from "react-dom";
 
 import styles from "./Modal.module.css";
-// import Button from "../Button/Button";
 import Card from "./Card";
 
 const Backdrop = (props) => {
@@ -24,8 +23,6 @@ const Modal = (props) => (
     )}
     {ReactDOM.createPortal(
       <ModalOverlay
-        // title={props.title}
-        // message={props.message}
         onConfirm={props.onConfirm}
       >
         {props.children}
