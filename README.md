@@ -1,4 +1,4 @@
-# 3380GroupProject-Team1
+# Dish-Ordering
 
 Set up and start back end sever first, then start the front end application.
 
